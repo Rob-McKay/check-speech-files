@@ -1,4 +1,10 @@
-// Copyright 2022 Rob McKay
+//  main.swift
+//
+//  Convert an audio file to text
+//
+//  Created by Rob McKay on 28/02/2022.
+//
+//  Copyright 2022 Rob McKay
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,10 +18,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-//  main.swift
-//  check-speech-files
-//
-//  Created by Rob McKay on 28/02/2022.
 
 import Foundation
 import Speech
@@ -41,7 +43,7 @@ func reportErrorAndExit(error:String) -> Never
  */
 func recognizeFile(url:NSURL) -> SFSpeechRecognitionTask
 {
-    guard let recognizer = SFSpeechRecognizer() else {
+    guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB")) else {
         // A recognizer is not supported for the current locale
         reportErrorAndExit(error: "Recognizer not available")
     }
@@ -68,6 +70,12 @@ func recognizeFile(url:NSURL) -> SFSpeechRecognitionTask
 // Check we have been invoked with a file parameter
 
 if CommandLine.argc < 2 {
+//    let a = SFSpeechRecognizer.supportedLocales()
+//
+//    for locale in a {
+//        print(locale.identifier)
+//    }
+
     "Usage: \(CommandLine.arguments[0]) <filename>".data(using: .utf8)
         .map(FileHandle.standardError.write)
     exit(1)
@@ -79,5 +87,6 @@ let task = recognizeFile(url: NSURL(fileURLWithPath: CommandLine.arguments[1]))
 // Wait for the result
 let runLoop = RunLoop.current
 let distantFuture = NSDate.distantFuture as NSDate
+
 while (task.state != SFSpeechRecognitionTaskState.completed) && runLoop.run(mode: RunLoop.Mode.default, before: distantFuture as Date)
 {}

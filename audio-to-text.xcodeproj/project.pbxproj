@@ -24,7 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D409D4DC27CD24730065494F /* check-speech-files */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "check-speech-files"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D409D4DC27CD24730065494F /* audio-to-text */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "audio-to-text"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D409D4DF27CD24730065494F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D409D4E727CD24D70065494F /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -44,7 +44,7 @@
 		D409D4D327CD24730065494F = {
 			isa = PBXGroup;
 			children = (
-				D409D4DE27CD24730065494F /* check-speech-files */,
+				D409D4DE27CD24730065494F /* audio-to-speech */,
 				D409D4DD27CD24730065494F /* Products */,
 				D409D4E627CD24D70065494F /* Frameworks */,
 			);
@@ -53,17 +53,17 @@
 		D409D4DD27CD24730065494F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D409D4DC27CD24730065494F /* check-speech-files */,
+				D409D4DC27CD24730065494F /* audio-to-text */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D409D4DE27CD24730065494F /* check-speech-files */ = {
+		D409D4DE27CD24730065494F /* audio-to-speech */ = {
 			isa = PBXGroup;
 			children = (
 				D409D4DF27CD24730065494F /* main.swift */,
 			);
-			path = "check-speech-files";
+			path = "audio-to-speech";
 			sourceTree = "<group>";
 		};
 		D409D4E627CD24D70065494F /* Frameworks */ = {
@@ -77,9 +77,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D409D4DB27CD24730065494F /* check-speech-files */ = {
+		D409D4DB27CD24730065494F /* audio-to-text */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D409D4E327CD24730065494F /* Build configuration list for PBXNativeTarget "check-speech-files" */;
+			buildConfigurationList = D409D4E327CD24730065494F /* Build configuration list for PBXNativeTarget "audio-to-text" */;
 			buildPhases = (
 				D409D4D827CD24730065494F /* Sources */,
 				D409D4D927CD24730065494F /* Frameworks */,
@@ -89,11 +89,11 @@
 			);
 			dependencies = (
 			);
-			name = "check-speech-files";
+			name = "audio-to-text";
 			packageProductDependencies = (
 			);
 			productName = "check-speech-files";
-			productReference = D409D4DC27CD24730065494F /* check-speech-files */;
+			productReference = D409D4DC27CD24730065494F /* audio-to-text */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -111,7 +111,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D409D4D727CD24730065494F /* Build configuration list for PBXProject "check-speech-files" */;
+			buildConfigurationList = D409D4D727CD24730065494F /* Build configuration list for PBXProject "audio-to-text" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -126,7 +126,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D409D4DB27CD24730065494F /* check-speech-files */,
+				D409D4DB27CD24730065494F /* audio-to-text */,
 			);
 		};
 /* End PBXProject section */
@@ -194,6 +194,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = Debug;
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -249,6 +250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = Release;
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -283,7 +285,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D409D4D727CD24730065494F /* Build configuration list for PBXProject "check-speech-files" */ = {
+		D409D4D727CD24730065494F /* Build configuration list for PBXProject "audio-to-text" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D409D4E127CD24730065494F /* Debug */,
@@ -292,7 +294,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D409D4E327CD24730065494F /* Build configuration list for PBXNativeTarget "check-speech-files" */ = {
+		D409D4E327CD24730065494F /* Build configuration list for PBXNativeTarget "audio-to-text" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D409D4E427CD24730065494F /* Debug */,
