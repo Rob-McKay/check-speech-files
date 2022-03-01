@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D409D4E027CD24730065494F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D409D4DF27CD24730065494F /* main.swift */; };
+		D409D4E827CD24D70065494F /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D409D4E727CD24D70065494F /* Speech.framework */; platformFilter = maccatalyst; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		D409D4DC27CD24730065494F /* check-speech-files */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "check-speech-files"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D409D4DF27CD24730065494F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D409D4E727CD24D70065494F /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D409D4E827CD24D70065494F /* Speech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +46,7 @@
 			children = (
 				D409D4DE27CD24730065494F /* check-speech-files */,
 				D409D4DD27CD24730065494F /* Products */,
+				D409D4E627CD24D70065494F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +66,14 @@
 			path = "check-speech-files";
 			sourceTree = "<group>";
 		};
+		D409D4E627CD24D70065494F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D409D4E727CD24D70065494F /* Speech.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +90,8 @@
 			dependencies = (
 			);
 			name = "check-speech-files";
+			packageProductDependencies = (
+			);
 			productName = "check-speech-files";
 			productReference = D409D4DC27CD24730065494F /* check-speech-files */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +120,9 @@
 				Base,
 			);
 			mainGroup = D409D4D327CD24730065494F;
+			packageReferences = (
+				D409D4E927CD40680065494F /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = D409D4DD27CD24730065494F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -286,6 +303,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D409D4E927CD40680065494F /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = D409D4D427CD24730065494F /* Project object */;
 }
