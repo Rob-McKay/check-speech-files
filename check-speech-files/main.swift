@@ -1,48 +1,71 @@
+// Copyright 2022 Rob McKay
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 //  main.swift
 //  check-speech-files
 //
 //  Created by Rob McKay on 28/02/2022.
-//
 
 import Foundation
 import Speech
 
-var complete = false
+/**
+ Write an error message to the standard error stream and exit with a failure code.
+ 
+ - Parameter error: The message to be output to stderr
+ 
+ - Returns: Never
+*/
+func reportErrorAndExit(error:String) -> Never
+{
+    error.data(using: .utf8)
+        .map(FileHandle.standardError.write)
+    exit(2)
+}
 
-func recognizeFile(url:NSURL) {
-    guard let myRecognizer = SFSpeechRecognizer() else {
+/**
+    Convert an audio file to text which is output to stdout
+ 
+    - Parameter url: The url of the audio file to convert to text
+ */
+func recognizeFile(url:NSURL) -> SFSpeechRecognitionTask
+{
+    guard let recognizer = SFSpeechRecognizer() else {
         // A recognizer is not supported for the current locale
-        "Recognizer not available".data(using: .utf8)
-            .map(FileHandle.standardError.write)
-        exit(2)
+        reportErrorAndExit(error: "Recognizer not available")
     }
     
-    if !myRecognizer.isAvailable {
+    if !recognizer.isAvailable {
         // The recognizer is not available right now
-        "Recognizer not available".data(using: .utf8)
-            .map(FileHandle.standardError.write)
-        exit(2)
+        reportErrorAndExit(error: "Recognizer not available")
     }
     
     let request = SFSpeechURLRecognitionRequest(url: url as URL)
     
-    
-    myRecognizer.recognitionTask(with: request) { (result, error) in
+    return recognizer.recognitionTask(with: request) { (result, error) in
         guard let result = result else {
             // Recognition failed, so check error for details and handle it
-            "Failed to convert speech in file \(error.debugDescription)".data(using: .utf8)
-                .map(FileHandle.standardError.write)
-            exit(2)
+            reportErrorAndExit(error: "Failed to convert speech in file \(error.debugDescription)")
         }
         
-        // Print the speech that has been recognized so far
         if result.isFinal {
             print(result.bestTranscription.formattedString)
-            complete = true
         }
     }
 }
+
+// Check we have been invoked with a file parameter
 
 if CommandLine.argc < 2 {
     "Usage: \(CommandLine.arguments[0]) <filename>".data(using: .utf8)
@@ -50,11 +73,11 @@ if CommandLine.argc < 2 {
     exit(1)
 }
 
-let args = CommandLine.arguments
+// Process the file
+let task = recognizeFile(url: NSURL(fileURLWithPath: CommandLine.arguments[1]))
 
-
-recognizeFile(url: NSURL(fileURLWithPath: CommandLine.arguments[1]))
-
+// Wait for the result
 let runLoop = RunLoop.current
 let distantFuture = NSDate.distantFuture as NSDate
-while !complete && runLoop.run(mode: RunLoop.Mode.default, before: distantFuture as Date) {}
+while (task.state != SFSpeechRecognitionTaskState.completed) && runLoop.run(mode: RunLoop.Mode.default, before: distantFuture as Date)
+{}
