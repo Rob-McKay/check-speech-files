@@ -44,7 +44,7 @@
 		D409D4D327CD24730065494F = {
 			isa = PBXGroup;
 			children = (
-				D409D4DE27CD24730065494F /* audio-to-speech */,
+				D409D4DE27CD24730065494F /* audio-to-text */,
 				D409D4DD27CD24730065494F /* Products */,
 				D409D4E627CD24D70065494F /* Frameworks */,
 			);
@@ -58,12 +58,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D409D4DE27CD24730065494F /* audio-to-speech */ = {
+		D409D4DE27CD24730065494F /* audio-to-text */ = {
 			isa = PBXGroup;
 			children = (
 				D409D4DF27CD24730065494F /* main.swift */,
 			);
-			path = "audio-to-speech";
+			path = "audio-to-text";
 			sourceTree = "<group>";
 		};
 		D409D4E627CD24D70065494F /* Frameworks */ = {
