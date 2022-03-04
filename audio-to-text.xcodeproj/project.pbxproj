@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D409D4E027CD24730065494F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D409D4DF27CD24730065494F /* main.swift */; };
 		D409D4E827CD24D70065494F /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D409D4E727CD24D70065494F /* Speech.framework */; platformFilter = maccatalyst; };
+		D46D999A27D206DC001857F2 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = D46D999927D206DC001857F2 /* ArgumentParser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D46D999A27D206DC001857F2 /* ArgumentParser in Frameworks */,
 				D409D4E827CD24D70065494F /* Speech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +93,7 @@
 			);
 			name = "audio-to-text";
 			packageProductDependencies = (
+				D46D999927D206DC001857F2 /* ArgumentParser */,
 			);
 			productName = "check-speech-files";
 			productReference = D409D4DC27CD24730065494F /* audio-to-text */;
@@ -121,6 +124,7 @@
 			);
 			mainGroup = D409D4D327CD24730065494F;
 			packageReferences = (
+				D46D999827D206DC001857F2 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
 			productRefGroup = D409D4DD27CD24730065494F /* Products */;
 			projectDirPath = "";
@@ -304,6 +308,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D46D999827D206DC001857F2 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D46D999927D206DC001857F2 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D46D999827D206DC001857F2 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D409D4D427CD24730065494F /* Project object */;
 }

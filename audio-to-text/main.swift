@@ -21,6 +21,7 @@
 
 import Foundation
 import Speech
+import ArgumentParser
 
 /**
  Write an error message to the standard error stream and exit with a failure code.
@@ -33,6 +34,8 @@ func reportErrorAndExit(error:String) -> Never
 {
     error.data(using: .utf8)
         .map(FileHandle.standardError.write)
+    "\n".data(using: .utf8)
+        .map(FileHandle.standardError.write)
     exit(2)
 }
 
@@ -41,24 +44,28 @@ func reportErrorAndExit(error:String) -> Never
  
     - Parameter url: The url of the audio file to convert to text
  */
-func recognizeFile(url:NSURL) -> SFSpeechRecognitionTask
+func recognizeFile(url:NSURL, locale:String) -> SFSpeechRecognitionTask
 {
-    guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB")) else {
+    guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: locale)) else {
         // A recognizer is not supported for the current locale
         reportErrorAndExit(error: "Recognizer not available")
     }
     
     if !recognizer.isAvailable {
         // The recognizer is not available right now
-        reportErrorAndExit(error: "Recognizer not available")
+        reportErrorAndExit(error: "Recognizer is unavailable")
     }
     
+    recognizer.defaultTaskHint = SFSpeechRecognitionTaskHint.dictation
+    
     let request = SFSpeechURLRecognitionRequest(url: url as URL)
+    
+    request.taskHint = SFSpeechRecognitionTaskHint.dictation
     
     return recognizer.recognitionTask(with: request) { (result, error) in
         guard let result = result else {
             // Recognition failed, so check error for details and handle it
-            reportErrorAndExit(error: "Failed to convert speech in file \(error.debugDescription)")
+            reportErrorAndExit(error: "Failed to convert speech in file \(error.debugDescription.description)")
         }
         
         if result.isFinal {
@@ -67,26 +74,28 @@ func recognizeFile(url:NSURL) -> SFSpeechRecognitionTask
     }
 }
 
-// Check we have been invoked with a file parameter
+struct Dictation: ParsableCommand
+{
+    static let configuration = CommandConfiguration(commandName: CommandLine.arguments[0], abstract: "Convert speech file to text.")
+    
+    @Argument
+    var inputFile: String
 
-if CommandLine.argc < 2 {
-//    let a = SFSpeechRecognizer.supportedLocales()
-//
-//    for locale in a {
-//        print(locale.identifier)
-//    }
+    @Option(name: [.short, .customLong("locale")], help: "The speech locale to use.")
+    var locale: String = "en-GB"
 
-    "Usage: \(CommandLine.arguments[0]) <filename>".data(using: .utf8)
-        .map(FileHandle.standardError.write)
-    exit(1)
+    mutating func run() throws {
+        // Process the file
+        let task = recognizeFile(url: NSURL(fileURLWithPath: inputFile), locale: locale)
+
+        // Wait for the result
+        let runLoop = RunLoop.current
+        let distantFuture = NSDate.distantFuture as NSDate
+
+        while (task.state != SFSpeechRecognitionTaskState.completed) && runLoop.run(mode: RunLoop.Mode.default, before: distantFuture as Date)
+        {}
+    }
 }
 
-// Process the file
-let task = recognizeFile(url: NSURL(fileURLWithPath: CommandLine.arguments[1]))
-
-// Wait for the result
-let runLoop = RunLoop.current
-let distantFuture = NSDate.distantFuture as NSDate
-
-while (task.state != SFSpeechRecognitionTaskState.completed) && runLoop.run(mode: RunLoop.Mode.default, before: distantFuture as Date)
-{}
+Dictation.main()
+    
